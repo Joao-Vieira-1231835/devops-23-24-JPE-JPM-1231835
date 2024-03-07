@@ -35,20 +35,23 @@ public class Employee {
 
 	private int jobYears;
 
+	private String eMail;
+
 	protected Employee() {}
 
-	public Employee(String firstName, String lastName, String description, int jobYears) {
-		if(!areParamsValid(firstName,lastName,description,jobYears)){
+	public Employee(String firstName, String lastName, String description, int jobYears, String eMail) {
+		if(!areParamsValid(firstName,lastName,description,jobYears, eMail)){
 			throw new IllegalArgumentException ("Please insert valid Parameters");
 		}
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.description = description;
 		this.jobYears= jobYears;
+		this.eMail = eMail;
 	}
 
-	private boolean areParamsValid(String firstName, String lastName, String description, int jobYears){
-		if(firstName==null || firstName.trim().isEmpty()|| lastName==null || lastName.trim().isEmpty() || description==null || description.trim().isEmpty() || jobYears<0) return false;
+	private boolean areParamsValid(String firstName, String lastName, String description, int jobYears, String eMail){
+		if(firstName==null || firstName.trim().isEmpty() || lastName==null || lastName.trim().isEmpty() || description==null || description.trim().isEmpty() || jobYears<0 || eMail==null || eMail.trim().isEmpty()) return false;
 		return true;
 	}
 
@@ -61,13 +64,14 @@ public class Employee {
 			Objects.equals(firstName, employee.firstName) &&
 			Objects.equals(lastName, employee.lastName) &&
 			Objects.equals(description, employee.description) &&
-			Objects.equals(jobYears, employee.jobYears);
+			Objects.equals(jobYears, employee.jobYears) &&
+				Objects.equals(eMail, employee.eMail);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, firstName, lastName, description, jobYears);
+		return Objects.hash(id, firstName, lastName, description, jobYears, eMail);
 	}
 
 	public Long getId() {
@@ -110,6 +114,14 @@ public class Employee {
 		this.jobYears = jobYears;
 	}
 
+	public String getEmail(){
+		return eMail;
+	}
+
+	public void setEmail(String eMail) {
+		this.eMail = eMail;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee{" +
@@ -118,6 +130,7 @@ public class Employee {
 				", lastName='" + lastName + '\'' +
 				", description='" + description + '\'' +
 				", jobYears='" + jobYears + '\'' +
+				", eMail='" + eMail + '\'' +
 				'}';
 	}
 }
