@@ -15,6 +15,8 @@
  */
 package com.greglturnquist.payroll;
 
+import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
+
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -51,7 +53,7 @@ public class Employee {
 	}
 
 	private boolean areParamsValid(String firstName, String lastName, String description, int jobYears, String eMail){
-		if(firstName==null || firstName.trim().isEmpty() || lastName==null || lastName.trim().isEmpty() || description==null || description.trim().isEmpty() || jobYears<0 || eMail==null || eMail.trim().isEmpty()) return false;
+		if(firstName==null || firstName.trim().isEmpty() || lastName==null || lastName.trim().isEmpty() || description==null || description.trim().isEmpty() || jobYears<0 || eMail==null || eMail.trim().isEmpty() || !eMail.matches(".+@.+\\..+")) return false;
 		return true;
 	}
 
