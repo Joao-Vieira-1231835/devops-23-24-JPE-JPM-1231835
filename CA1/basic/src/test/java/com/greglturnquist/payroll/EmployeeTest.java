@@ -102,6 +102,22 @@ class EmployeeTest {
         assertEquals(expected,result);
     }
     @Test
+    void employeeConstructor_throwsIllegalArgumentExceptionIfEmailWithoutAtCharacter(){
+        //Arrange
+        String firstName="Vitorino";
+        String lastName="Silva";
+        String description="Presidente da Junta";
+        String eMail = "tinoderans.pt";
+        int jobYears=4;
+        String expected = "Please insert valid Parameters";
+        //Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                new Employee (firstName,lastName,description,jobYears, eMail));
+        String result = exception.getMessage();
+        //Assert
+        assertEquals(expected,result);
+    }
+    @Test
     void firstNameGetterTest(){
         //Arrange
         String firstName="Vitorino";
