@@ -16,7 +16,7 @@ My assignment can be found [here](https://github.com/Joao-Vieira-1231835/devops-
    - [Part 3: Addition of the fix for invalid email](#Part-3-Addition-of-the-fix-for-invalid-email)
 3. [Issues](#Issues)
 4. [Alternative to Git: Perforce Helix Core](#Alternative-to-Git-Perforce-Helix-Core)
-   - [Branches, Commits, Push and Pulls in Perforce Helix Core](#Branches,-Commits,-Push-and-Pulls-in-Perforce-Helix-Core)
+   - [Branches Commits Push and Pulls in Perforce Helix Core](#Branches-Commits-Push-and-Pulls-in-Perforce-Helix-Core)
    - [Useful commands for Perforce Helix Core](#Useful-commands-for-Perforce-Helix-Core)
 5. [Final Remarks](#Final-Remarks)
 
@@ -45,7 +45,7 @@ Alternatively, it could have been done using these commands on git bash:
    ```
 4. Push the commit to the remote repository:
    ```bash
-   git remote add origin <https://github.com/Joao-Vieira-1231835/devops-23-24-JPE-JPM-1231835>
+   git remote add origin https://github.com/Joao-Vieira-1231835/devops-23-24-JPE-JPM-1231835
    git push -u origin master
    ```
 
@@ -225,7 +225,7 @@ git commit -m "Closes #2"
 
 Perforce Helix Core is a centralized version control system. It means that there is a single server where the files are stored, and users check out files to work on them (Unlike GitHub, where every user has a complete copy of the repository, including its history, which allows for flexible workflows and offline work). It's known for its ability to handle very large codebases and binary files efficiently, which makes it a choice for large, enterprise-level projects, especially in industries like game development, automotive, and multimedia production, where projects involve a lot of binary data (like images, audio files, and 3D models).
 
-#### Branches, Commits, Push and Pulls in Perforce Helix Core
+#### Branches Commits Push and Pulls in Perforce Helix Core
 
 In Perforce, branches are often managed through "branch specifications" or "streams." The approach to branching can be more structured than in Git, emphasizing a more controlled flow of changes. To create a Branch (Stream) the Perforce Visual Client (P4V) can be used or, instead, the command line with p4 stream to create a stream specification and p4 branch to define mappings between source and target paths.
 
@@ -239,14 +239,23 @@ Pull: The equivalent action in Perforce is p4 sync, which synchronizes the works
 ##### Useful commands for Perforce Helix Core
 
 p4 add: Mark files to be added to the depot.
+
 p4 edit: Open an existing file for edit.
+
 p4 delete: Mark a file for deletion from the depot.
+
 p4 submit: Submit changes from your workspace to the depot.
+
 p4 sync: Synchronize your workspace with the depot.
+
 p4 integrate: Integrate changes from one branch into another.
+
 p4 resolve: Resolve conflicts resulting from an integrate operation.
+
 p4 revert: Discard changes in your workspace before submitting.
+
 p4 branch: Create or edit a branch mapping specification.
+
 p4 stream: Create or edit a stream.
 
 
@@ -254,6 +263,9 @@ p4 stream: Create or edit a stream.
 
 As final remarks I must point out that this class assignment was quite joyful to do with the help of my colleagues during class hours and also the much appreciated help from teacher Paulo Matos specially when I ran into a problem with unversioned files.
 During the whole process the two main areas to be accounted for future reference are:
+
 1- The fact that I should have closed issue#1 before merging the first branch back into the main, which would allowed me not to have to write the commands 'git commit --amend -m "..."' and 'git push --force' to ammend and forcefully push the commit (which should not be done in a scenario where multiple people are working on the same repository).
+
 2- The fact that I should have created Issues from the start and not only since the second part of the assignment. Issues help figure out what to do next and establish a route.
+
 So, overall I think all went well and quite smoothly, apart from some bumps that were smoothed out along the way.
