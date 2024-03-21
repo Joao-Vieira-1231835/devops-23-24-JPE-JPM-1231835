@@ -95,3 +95,11 @@ task runServer(type: JavaExec, dependsOn: classes) {
     // Port number can be changed to any port other than '59001' if needed
     args 'localhost', '59001'
 }
+
+task backupSources(type: Copy) {
+    description = 'Backs up the source code to a backup directory'
+    group = 'Backup'
+
+    from 'src'
+    into 'backup'
+}
