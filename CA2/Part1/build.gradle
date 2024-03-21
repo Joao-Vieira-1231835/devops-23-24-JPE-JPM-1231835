@@ -26,7 +26,29 @@ dependencies {
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.2'
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
 }
- 
+
+//dependencies {
+//    // Use Apache Log4J for logging
+//    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.2'
+//    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
+//    implementation 'junit:junit:4.13.1'
+//    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+//    // Test Implementation Dependency for JUnit
+//    testImplementation 'junit:junit:4.12'
+//}
+
+//dependencies {
+//    // Use Apache Log4J for logging - updated to a newer version
+//    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1' // or newer
+//    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1' // or newer
+//
+//    // JUnit Jupiter for unit tests with JUnit 5
+//    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+//
+//    // Use JUnit 4 for tests - ensure a single, consistent version
+//    testImplementation 'junit:junit:4.13.1'
+//}
+//
 
 // Define the main class for the application
 mainClassName = 'basic_demo.App'
@@ -55,5 +77,18 @@ task runClient(type:JavaExec, dependsOn: classes){
 
     mainClass = 'basic_demo.ChatClientApp'
 
+    args 'localhost', '59001'
+}
+
+task runServer(type: JavaExec, dependsOn: classes) {
+    group = "DevOps"
+    description = "Launches the chat server on a specified port"
+
+    classpath = sourceSets.main.runtimeClasspath
+
+    mainClass = 'basic_demo.ChatServerApp'
+
+    // Port number on which the server should listen./gradlew build
+    // Port number can be changed to any port other than '59001' if needed
     args 'localhost', '59001'
 }
