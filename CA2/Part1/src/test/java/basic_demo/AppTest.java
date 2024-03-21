@@ -1,7 +1,7 @@
 package basic_demo;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.util.Optional;
 
@@ -17,6 +17,6 @@ public class AppTest {
 @Test
 public void testAppHasAGreeting() {
     App classUnderTest = new App();
-    assertNotNull(Optional.of("app should have a greeting"), classUnderTest.getGreeting());
+    assertNotNull("app should have a greeting", classUnderTest.getGreeting());
 }
 }
