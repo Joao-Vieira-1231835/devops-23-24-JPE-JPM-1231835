@@ -103,3 +103,9 @@ task backupSources(type: Copy) {
     from 'src'
     into 'backup'
 }
+task archiveSources(type: Zip) {
+    archiveFileName = 'sourceArchive.zip'
+
+    from 'src'
+}
+
