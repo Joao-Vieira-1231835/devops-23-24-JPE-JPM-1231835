@@ -45,3 +45,12 @@ task copyJarToDist(type: Copy) {
 
 assemble.finalizedBy(copyJarToDist)
 
+// Define a task to delete webpack generated files
+task deleteWebpackGeneratedFiles {
+	doLast {
+		delete fileTree(dir: 'src/main/resources/static/built/', include: '**/*')
+	}
+}
+
+// Ensure deleteWebpackGeneratedFiles runs before the clean task
+clean.dependsOn deleteWebpackGeneratedFiles
