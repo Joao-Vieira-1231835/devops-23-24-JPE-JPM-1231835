@@ -1,0 +1,38 @@
+# Official Ubuntu 20.04 LTS (Focal Fossa) image as the base image.
+# This provides a stable and secure operating system environment.
+FROM ubuntu:focal
+
+# Updates the package list and install required packages:
+# - wget: a utility to download files from the web
+# - openjdk-17-jdk-headless: Java Development Kit version 17 without GUI components
+# The rm command cleans up the package lists to reduce the image size.
+RUN apt-get update && \
+  apt-get install -y wget openjdk-17-jdk-headless && \
+   rm -rf /var/lib/apt/lists/* \
+
+# Sets the working directory to /opt/h2.
+# All subsequent commands will be executed from this directory.
+WORKDIR /opt/h2
+
+# Downloads the H2 database JAR file from the Maven repository and renames it to h2.jar.
+# This step transfers the H2 database engine into the Docker container.
+RUN wget https://repo1.maven.org/maven2/com/h2database/h2/1.4.200/h2-1.4.200.jar -O h2.jar
+
+# Exposes port 8082 for web-based H2 Console access.
+# This allows external access to the web interface of the H2 database.
+EXPOSE 8082
+
+# Exposes port 9092 for TCP-based H2 database access.
+# This allows external applications to connect to the H2 database via TCP.
+EXPOSE 9092
+
+# Defines the command to run the H2 database server when the container starts.
+# This command starts the H2 database server with specified options:
+# -ifNotExists: Only creates a new database if it does not already exist
+# -web: Enables the web-based H2 Console
+# -webAllowOthers: Allows remote access to the web-based H2 Console
+# -webPort: Specifies the port for the web-based H2 Console (8082)
+# -tcp: Enables TCP server mode
+# -tcpAllowOthers: Allows remote TCP connections
+# -tcpPort: Specifies the port for TCP server mode (9092)
+CMD ["java", "-cp", "h2.jar", "org.h2.tools.Server", "-ifNotExists", "-web", "-webAllowOthers", "-webPort", "8082", "-tcp", "-tcpAllowOthers", "-tcpPort", "9092"]

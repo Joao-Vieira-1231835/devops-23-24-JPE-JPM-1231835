@@ -1,0 +1,25 @@
+# First stage: Build the application
+FROM gradle:jdk17 as builder
+LABEL author="joaoa"
+
+WORKDIR /ca4-part1
+
+# Copy the gradle_basic_demo project directory into the Docker build context
+COPY gradle_basic_demo /ca4-part1/gradle_basic_demo
+
+# Change to the directory containing build.gradle
+WORKDIR /ca4-part1/gradle_basic_demo
+
+# Run the Gradle build
+RUN ./gradlew clean build
+
+# Second stage: Create the final image
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
+
+# Copy the built JAR file from the first stage
+COPY --from=builder /ca4-part1/gradle_basic_demo/build/libs/*.jar app.jar
+
+# Specify the command to run the application
+ENTRYPOINT ["java", "-cp", "app.jar", "basic_demo.ChatServerApp", "59001"]

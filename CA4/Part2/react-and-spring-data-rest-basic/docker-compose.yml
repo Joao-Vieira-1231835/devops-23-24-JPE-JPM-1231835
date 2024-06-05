@@ -1,0 +1,65 @@
+# Define the custom network used by the services.
+networks:
+  CA4_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.33.0/24
+
+# Define the services that make up the application.
+services:
+  # Define the database service.
+  db:
+    # Build the Docker image for the db service.
+    build:
+      # Specify the context directory for the Docker build.
+      context: ..
+      # Specify the Dockerfile to use for the build.
+      dockerfile: react-and-spring-data-rest-basic/Dockerfile-v2
+    # Set the container name for the db service.
+    container_name: CA4_Part2_db
+    # Map the container ports to the host ports.
+    # Expose port 8082 for web-based H2 Console access.
+    # Expose port 9092 for TCP-based H2 database access.
+    ports:
+      - "8082:8082"
+      - "9092:9092"
+    # Mount a volume to persist data.
+    # The volume h2-data is mounted to /opt/h2-data in the container.
+    volumes:
+      - h2-data:/opt/h2-data
+    # Connect the db service to the CA4_network.
+    networks:
+      CA4_network:
+        # Assign a static IP address to the db service within the CA4_network.
+        ipv4_address: 192.168.33.11
+
+  # Define the web service.
+  web:
+    # Build the Docker image for the web service.
+    build:
+      # Specify the context directory for the Docker build.
+      context: ..
+      # Specify the Dockerfile to use for the build.
+      dockerfile: react-and-spring-data-rest-basic/Dockerfile
+    # Set the container name for the web service.
+    container_name: CA4_Part2_web
+    # Map the container port 8080 to the host port 8080.
+    ports:
+      - "8080:8080"
+    # Connect the web service to the CA4_network.
+    networks:
+      CA4_network:
+        # Assign a static IP address to the web service within the CA4_network.
+        ipv4_address: 192.168.33.10
+    # Define a dependency on the db service.
+    # The web service will wait for the db service to be ready before starting.
+    depends_on:
+      - "db"
+
+# Define the named volumes used by the services.
+volumes:
+  # Define the h2-data volume to persist H2 database data.
+  h2-data:
+    # Use the default local driver for the volume.
+    driver: local
