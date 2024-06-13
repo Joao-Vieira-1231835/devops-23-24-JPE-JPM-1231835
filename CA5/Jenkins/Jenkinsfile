@@ -27,6 +27,7 @@ pipeline {
                 script {
                     if (isUnix()) {
                         dir ('CA2/Part1') {
+                        sh 'ls -la'
                             sh './gradlew clean'
                             sh './gradlew assemble'
                         }
