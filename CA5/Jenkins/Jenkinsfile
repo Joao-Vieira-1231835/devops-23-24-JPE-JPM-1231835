@@ -4,7 +4,7 @@ pipeline {
         stage ('Checkout') {
             steps {
                 echo 'Checking out...'
-                git 'https://github.com/Joao-Vieira-1231835/devops-23-24-JPE-JPM-1231835.git'
+                git branch: 'main', url: 'https://github.com/Joao-Vieira-1231835/devops-23-24-JPE-JPM-1231835.git'
             }
         }
         stage('Prepare') {
@@ -12,7 +12,7 @@ pipeline {
                 echo 'Setting executable permissions for gradlew...'
                 script {
                     if (isUnix()) {
-                        dir('ca2/part1') {
+                        dir('CA2/Part1') {
                             sh 'chmod +x gradlew'
                         }
                     } else {
@@ -23,15 +23,15 @@ pipeline {
         }
         stage ('Assemble') {
             steps {
-                echo 'Assembling ca2/part1 project...'
+                echo 'Assembling CA2/Part1 project...'
                 script {
                     if (isUnix()) {
-                        dir ('ca2/part1') {
+                        dir ('CA2/Part1') {
                             sh './gradlew clean'
                             sh './gradlew assemble'
                         }
                     } else {
-                        dir ('ca2/part1') {
+                        dir ('CA2/Part1') {
                             bat 'gradlew.bat clean'
                             bat 'gradlew.bat assemble'
                         }
@@ -44,11 +44,11 @@ pipeline {
                 echo 'Running tests...'
                 script {
                     if (isUnix()) {
-                        dir('ca2/part1') {
+                        dir('CA2/Part1') {
                             sh './gradlew test'
                         }
                     } else {
-                        dir('ca2/part1') {
+                        dir('CA2/Part1') {
                             bat 'gradlew.bat test'
                         }
                     }
@@ -57,14 +57,14 @@ pipeline {
             post {
                 always {
                     echo 'Publishing test results...'
-                    junit 'ca2/part1/build/test-results/test/*.xml'
+                    junit 'CA2/Part1/build/test-results/test/*.xml'
                 }
             }
         }
         stage ('Archiving') {
             steps {
                 echo 'Archiving...'
-                archiveArtifacts 'ca2/part1/build/libs/*.jar'
+                archiveArtifacts 'CA2/Part1/build/libs/*.jar'
             }
         }
     }
