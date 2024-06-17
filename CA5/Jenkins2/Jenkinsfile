@@ -95,7 +95,7 @@ pipeline {
                 script {
                     echo 'Building and publishing Docker image...'
                     def dockerImage = docker.build("joaoa/react-and-spring-data-rest-basic:${env.BUILD_ID}", "-f ./CA5/Jenkins2/Dockerfile .")
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-id') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-1231835') {
                         dockerImage.push()
                     }
                 }
